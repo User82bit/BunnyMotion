@@ -49,11 +49,12 @@
             // 
             // lblBallon
             // 
-            lblBallon.AutoSize = true;
             lblBallon.BackColor = Color.White;
             lblBallon.Location = new Point(22, 302);
+            lblBallon.MaximumSize = new Size(388, 0);
+            lblBallon.MinimumSize = new Size(0, 60);
             lblBallon.Name = "lblBallon";
-            lblBallon.Size = new Size(299, 25);
+            lblBallon.Size = new Size(388, 60);
             lblBallon.TabIndex = 1;
             lblBallon.Text = "Bem vindo ao sistema BunnyMotion";
             lblBallon.Click += label1_Click;
@@ -72,11 +73,10 @@
             Controls.Add(lblBallon);
             Controls.Add(pictureBox1);
             Name = "Bunny";
-            Text = "Bunny";
+            Text = "BunnyMotion Co.";
             Load += Form1_Load;
             ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
             ResumeLayout(false);
-            PerformLayout();
         }
 
         #endregion

@@ -4,7 +4,17 @@ namespace BunnyMotion
     {
         private System.Drawing.Image BunnyPoses(string TypePose)
         {
-            return Image.FromFile(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "assets", $"{TypePose}.jpg"));
+            return Image.FromFile(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "assets", $"{TypePose}.png")) ?? Image.FromFile(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "assets", $"{TypePose}.jpg"));
+        }
+        private async Task ChargeMessage(string message, int delay = 80)
+        {
+            await Task.Delay(1000);
+            lblBallon.Text = "";
+            foreach (char c in message)
+            {
+                lblBallon.Text += c;
+                await Task.Delay(delay);
+            }
         }
         public Bunny()
         {
@@ -13,9 +23,11 @@ namespace BunnyMotion
             this.BackgroundImageLayout = ImageLayout.Stretch;
         }
 
-        private void Form1_Load(object sender, EventArgs e)
+        private async void Form1_Load(object sender, EventArgs e)
         {
-
+            await ChargeMessage("Olá! Eu sou Bunny, seu amigo eletrônico. Vamos buscar aventuras!!");
+            await ChargeMessage("Conheço brincadeiras incriveis para brincar com você!!");
+            this.BackgroundImage = BunnyPoses("happy");
         }
 
         private void label1_Click(object sender, EventArgs e)
