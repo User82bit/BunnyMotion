@@ -29,25 +29,24 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Bunny));
-            pictureBox1 = new PictureBox();
+            pictureBoxForm = new PictureBox();
             lblBallon = new Label();
-            ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)pictureBoxForm).BeginInit();
             SuspendLayout();
             // 
-            // pictureBox1
+            // pictureBoxForm
             // 
-            resources.ApplyResources(pictureBox1, "pictureBox1");
-            pictureBox1.AccessibleRole = AccessibleRole.ScrollBar;
-            pictureBox1.BackColor = Color.Transparent;
-            pictureBox1.Name = "pictureBox1";
-            pictureBox1.TabStop = false;
+            resources.ApplyResources(pictureBoxForm, "pictureBoxForm");
+            pictureBoxForm.BackColor = SystemColors.Window;
+            pictureBoxForm.Name = "pictureBoxForm";
+            pictureBoxForm.TabStop = false;
+            pictureBoxForm.Click += pictureBox2_Click;
             // 
             // lblBallon
             // 
             resources.ApplyResources(lblBallon, "lblBallon");
-            lblBallon.BackColor = Color.White;
             lblBallon.Name = "lblBallon";
-            lblBallon.Click += label1_Click;
+            lblBallon.Click += label1_Click_1;
             // 
             // Bunny
             // 
@@ -55,18 +54,17 @@
             AutoScaleMode = AutoScaleMode.Font;
             ControlBox = false;
             Controls.Add(lblBallon);
-            Controls.Add(pictureBox1);
+            Controls.Add(pictureBoxForm);
             DoubleBuffered = true;
             MaximizeBox = false;
             Name = "Bunny";
             Load += Form1_Load;
-            ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
+            ((System.ComponentModel.ISupportInitialize)pictureBoxForm).EndInit();
             ResumeLayout(false);
         }
 
         #endregion
-
-        private PictureBox pictureBox1;
+        private System.Windows.Forms.PictureBox pictureBoxForm;
         private Label lblBallon;
     }
 }
