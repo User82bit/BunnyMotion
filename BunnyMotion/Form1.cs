@@ -27,7 +27,8 @@ namespace BunnyMotion
         {
             await ChargeMessage("Olá! Eu sou Bunny, seu amigo eletrônico. Vamos buscar aventuras!!");
             await ChargeMessage("Conheço brincadeiras incriveis para brincar com você!!");
-            this.BackgroundImage = BunnyPoses("happy");
+            await ChargeMessage("Bunny o coelho... Bunny o Bunny, this Bunn... Bunny for Bunny");
+            //this.BackgroundImage = BunnyPoses("happy");
         }
 
         private void label1_Click(object sender, EventArgs e)

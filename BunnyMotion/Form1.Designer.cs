@@ -28,52 +28,37 @@
         /// </summary>
         private void InitializeComponent()
         {
-            components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Bunny));
             pictureBox1 = new PictureBox();
             lblBallon = new Label();
-            notifyIcon1 = new NotifyIcon(components);
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             SuspendLayout();
             // 
             // pictureBox1
             // 
+            resources.ApplyResources(pictureBox1, "pictureBox1");
+            pictureBox1.AccessibleRole = AccessibleRole.ScrollBar;
             pictureBox1.BackColor = Color.Transparent;
-            pictureBox1.BackgroundImage = (Image)resources.GetObject("pictureBox1.BackgroundImage");
-            pictureBox1.BackgroundImageLayout = ImageLayout.Stretch;
-            pictureBox1.Location = new Point(-4, 160);
             pictureBox1.Name = "pictureBox1";
-            pictureBox1.Size = new Size(445, 354);
-            pictureBox1.TabIndex = 0;
             pictureBox1.TabStop = false;
             // 
             // lblBallon
             // 
+            resources.ApplyResources(lblBallon, "lblBallon");
             lblBallon.BackColor = Color.White;
-            lblBallon.Location = new Point(22, 302);
-            lblBallon.MaximumSize = new Size(388, 0);
-            lblBallon.MinimumSize = new Size(0, 60);
             lblBallon.Name = "lblBallon";
-            lblBallon.Size = new Size(388, 60);
-            lblBallon.TabIndex = 1;
-            lblBallon.Text = "Bem vindo ao sistema BunnyMotion";
             lblBallon.Click += label1_Click;
-            // 
-            // notifyIcon1
-            // 
-            notifyIcon1.Text = "notifyIcon1";
-            notifyIcon1.Visible = true;
             // 
             // Bunny
             // 
-            AutoScaleDimensions = new SizeF(10F, 25F);
+            resources.ApplyResources(this, "$this");
             AutoScaleMode = AutoScaleMode.Font;
-            BackgroundImageLayout = ImageLayout.Zoom;
-            ClientSize = new Size(438, 404);
+            ControlBox = false;
             Controls.Add(lblBallon);
             Controls.Add(pictureBox1);
+            DoubleBuffered = true;
+            MaximizeBox = false;
             Name = "Bunny";
-            Text = "BunnyMotion Co.";
             Load += Form1_Load;
             ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
             ResumeLayout(false);
@@ -83,6 +68,5 @@
 
         private PictureBox pictureBox1;
         private Label lblBallon;
-        private NotifyIcon notifyIcon1;
     }
 }
