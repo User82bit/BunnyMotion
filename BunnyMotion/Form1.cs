@@ -1,4 +1,5 @@
 using System.Drawing.Drawing2D;
+using NAudio.Wave;
 
 namespace BunnyMotion
 {
@@ -46,6 +47,21 @@ namespace BunnyMotion
                         g.DrawImage(personagem, posX, posY, newW, newH);
                     }
                 }
+                using (Image SpechBallon = BunnyPoses("SpeechBallon"))
+                {
+                    if (SpechBallon != null)
+                    {
+                        float scaleX = 0.38f;
+                        float scaleY = 0.3f;
+                        int newW = (int)(SpechBallon.Width * scaleX);
+                        int newH = (int)(SpechBallon.Height * scaleY);
+                        int posX = -16;
+                        int posY = 125;
+
+                        g.InterpolationMode = InterpolationMode.HighQualityBicubic;
+                        g.DrawImage(SpechBallon, posX, posY, newW, newH);
+                    }
+                }
             }
 
             if (pictureBoxForm.Image != null)
@@ -56,14 +72,51 @@ namespace BunnyMotion
             pictureBoxForm.Image = canvas;
         }
 
-        private async Task ChargeMessage(string message, int wait = 1000, int delay = 80)
+        private async Task ChargeMessage(string message, int wait = 1000, int delay = 100)
         {
             await Task.Delay(wait);
             lblBallon.Text = "";
+            string soundPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "assets", "charSound.mp3");
+            using var soundReader = new AudioFileReader(soundPath);
+            using var soundPlayer = new WaveOut();
+            soundPlayer.Init(soundReader);
+
             foreach (char c in message)
             {
                 lblBallon.Text += c;
+                soundPlayer.Stop();
+                soundReader.Position = 0;
+                soundPlayer.Play();
                 await Task.Delay(delay);
+            }
+        }
+
+        private async Task<(string Input, bool ConditionMatched)> GetUserInput(Func<string, bool>? condition = null)
+        {
+            whiteBox.Clear();
+            whiteBox.Visible = true;
+            var inputSource = new TaskCompletionSource<(string Input, bool ConditionMatched)>();
+            KeyEventHandler onKeyDown = (_, keyEvent) =>
+            {
+                if (keyEvent.KeyCode != Keys.Enter)
+                    return;
+
+                keyEvent.SuppressKeyPress = true;
+                string userInput = whiteBox.Text.Trim();
+                if (!string.IsNullOrWhiteSpace(userInput))
+                    inputSource.TrySetResult((userInput, condition?.Invoke(userInput) ?? false));
+            };
+
+            whiteBox.KeyDown += onKeyDown;
+            whiteBox.Focus();
+            try
+            {
+                return await inputSource.Task;
+            }
+            finally
+            {
+                whiteBox.KeyDown -= onKeyDown;
+                whiteBox.Visible = false;
             }
         }
 
@@ -72,25 +125,44 @@ namespace BunnyMotion
             InitializeComponent();
 
             pictureBoxForm.Dock = DockStyle.Fill;
+            this.lblBallon.Font = new Font("Arial", 10, FontStyle.Bold);
         }
 
         private async void Form1_Load(object sender, EventArgs e)
         {
             AtualizarCenario("Background1Bunny", "idle");
 
-            await ChargeMessage("Olá! Eu sou Bunny, seu amigo eletrônico. Vamos buscar aventuras!!", wait : 100);
+            await ChargeMessage("Bem vindo a BunnyMotion, eu sou Bunny's Bunes.", wait: 10);
 
             //AtualizarCenario("Background1Bunny", "happy");
 
-            await ChargeMessage("Conheço brincadeiras incriveis para brincar com você!!");
-            await ChargeMessage("Bunny o coelho... Bunny o Bunny, this Bunn... Bunny for Bunny");
+            await ChargeMessage("Estamos felizes em ter você conosco... ");
+            await ChargeMessage("... ... ...", delay: 350);
+            await ChargeMessage("Gostaria de dizer seu nome?");
+            string[] negativeAnswers = ["não", "nao", "n", "no"];
+            var (name, isNegation) = await GetUserInput(input =>
+                negativeAnswers.Contains(input, StringComparer.OrdinalIgnoreCase));
+            if (isNegation)
+            {
+                await ChargeMessage("Tudo bem! Se mudar de ideia, é só me contar.");
+                return;
+            }
+
+            await ChargeMessage($"Prazer em te conhecer, {name}!");
+            await ChargeMessage("");
         }
 
-        private void label1_Click(object sender, EventArgs e) { }
-
-        private void pictureBox2_Click(object sender, EventArgs e) { }
+        private void pictureBox2_Click(object sender, EventArgs e) 
+        { 
+        
+        }
 
         private void label1_Click_1(object sender, EventArgs e)
+        {
+
+        }
+
+        private void textBox1_TextChanged(object sender, EventArgs e)
         {
 
         }

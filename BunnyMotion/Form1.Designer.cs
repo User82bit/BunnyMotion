@@ -31,6 +31,7 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Bunny));
             pictureBoxForm = new PictureBox();
             lblBallon = new Label();
+            whiteBox = new TextBox();
             ((System.ComponentModel.ISupportInitialize)pictureBoxForm).BeginInit();
             SuspendLayout();
             // 
@@ -45,14 +46,23 @@
             // lblBallon
             // 
             resources.ApplyResources(lblBallon, "lblBallon");
+            lblBallon.BackColor = Color.White;
             lblBallon.Name = "lblBallon";
             lblBallon.Click += label1_Click_1;
+            // 
+            // whiteBox
+            // 
+            resources.ApplyResources(whiteBox, "whiteBox");
+            whiteBox.Cursor = Cursors.IBeam;
+            whiteBox.Name = "whiteBox";
+            whiteBox.TextChanged += textBox1_TextChanged;
             // 
             // Bunny
             // 
             resources.ApplyResources(this, "$this");
             AutoScaleMode = AutoScaleMode.Font;
             ControlBox = false;
+            Controls.Add(whiteBox);
             Controls.Add(lblBallon);
             Controls.Add(pictureBoxForm);
             DoubleBuffered = true;
@@ -61,10 +71,12 @@
             Load += Form1_Load;
             ((System.ComponentModel.ISupportInitialize)pictureBoxForm).EndInit();
             ResumeLayout(false);
+            PerformLayout();
         }
 
         #endregion
         private System.Windows.Forms.PictureBox pictureBoxForm;
         private Label lblBallon;
+        private TextBox whiteBox;
     }
 }
