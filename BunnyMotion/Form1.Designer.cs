@@ -66,8 +66,12 @@
             Controls.Add(lblBallon);
             Controls.Add(pictureBoxForm);
             DoubleBuffered = true;
+            FormBorderStyle = FormBorderStyle.None;
+            FormScreenCaptureMode = ScreenCaptureMode.HideWindow;
             MaximizeBox = false;
             Name = "Bunny";
+            ShowInTaskbar = false;
+            TopMost = true;
             Load += Form1_Load;
             ((System.ComponentModel.ISupportInitialize)pictureBoxForm).EndInit();
             ResumeLayout(false);
