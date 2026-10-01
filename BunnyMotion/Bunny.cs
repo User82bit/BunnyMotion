@@ -76,7 +76,7 @@ namespace BunnyMotion
         {
             await Task.Delay(wait);
             lblBallon.Text = "";
-            string soundPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "assets", "charSound.mp3");
+            string soundPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "assets", "Bunny_Click.mp3");
             using var soundReader = new AudioFileReader(soundPath);
             using var soundPlayer = new WaveOut();
             soundPlayer.Init(soundReader);
@@ -84,10 +84,13 @@ namespace BunnyMotion
             foreach (char c in message)
             {
                 lblBallon.Text += c;
-                soundPlayer.Stop();
-                soundReader.Position = 0;
-                soundPlayer.Play();
-                await Task.Delay(delay);
+                if (c != ' ')
+                {
+                    soundPlayer.Stop();
+                    soundReader.Position = 0;
+                    soundPlayer.Play();
+                    await Task.Delay(delay);
+                }
             }
         }
 
@@ -120,6 +123,13 @@ namespace BunnyMotion
             }
         }
 
+        public void ChargeMoveBunny()
+        {
+            // Chamar o outro Form BunnyMotion.MoveBunny sem fechar o atual Bunny
+            var moveBunnyForm = new MoveBunny();
+            moveBunnyForm.Show();
+        }
+
         public Bunny()
         {
             InitializeComponent();
@@ -128,7 +138,7 @@ namespace BunnyMotion
             this.lblBallon.Font = new Font("Arial", 10, FontStyle.Bold);
         }
 
-        private async void Form1_Load(object sender, EventArgs e)
+        private async void Bunny_Load(object sender, EventArgs e)
         {
             AtualizarCenario("Background1Bunny", "idle");
 
@@ -150,6 +160,7 @@ namespace BunnyMotion
 
             await ChargeMessage($"Prazer em te conhecer, {name}!");
             await ChargeMessage("");
+            ChargeMoveBunny();
         }
 
         private void pictureBox2_Click(object sender, EventArgs e) 

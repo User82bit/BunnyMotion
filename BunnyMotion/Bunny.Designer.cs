@@ -72,7 +72,8 @@
             Name = "Bunny";
             ShowInTaskbar = false;
             TopMost = true;
-            Load += Form1_Load;
+            TransparencyKey = SystemColors.Control;
+            Load += Bunny_Load;
             ((System.ComponentModel.ISupportInitialize)pictureBoxForm).EndInit();
             ResumeLayout(false);
             PerformLayout();
